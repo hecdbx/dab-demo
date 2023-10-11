@@ -12,6 +12,7 @@ def medium_metrics():
     metricsDF = df.groupby("link").applyInPandas(get_metrics, schema="link string, claps double, readingTime double")
 
     # Join on original data, sort by number of claps descending
+    test = "test"
     finalDF = metricsDF.join(df, on = "link", how = "right_outer").sort(desc("claps"))
     return finalDF
 
