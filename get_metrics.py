@@ -8,7 +8,6 @@ import requests
 @dlt.table
 def medium_metrics():
     df: DataFrame = dlt.read("medium_clean")
-
     metricsDF = df.groupby("link").applyInPandas(get_metrics, schema="link string, claps double, readingTime double")
     # Join on original data, sort by number of claps descending
     finalDF = metricsDF.join(df, on = "link", how = "right_outer").sort(desc("claps"))
