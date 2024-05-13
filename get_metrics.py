@@ -9,13 +9,11 @@ import requests
 def medium_metrics():
     df: DataFrame = dlt.read("medium_clean")
     metricsDF = df.groupby("link").applyInPandas(get_metrics, schema="link string, claps double, readingTime double")
-    x = "nothing"
     # Join on original data, sort by number of claps descending
     finalDF = metricsDF.join(df, on = "link", how = "right_outer").sort(desc("claps"))
     return finalDF
 
-
-# Get Medium page HTML and parse clap count and reading time
+# Get Medium page HTML and parse clap count and reading time 
 def get_metrics(input_df: pd.DataFrame) -> pd.DataFrame:
     story_url = input_df['link'][0]
     response = story = requests.get(story_url)
