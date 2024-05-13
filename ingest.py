@@ -11,6 +11,7 @@ def medium_raw():
     csv_path = "dbfs:/FileStore/houssem/fe_medium_posts_raw.csv"
     return spark.read.csv(csv_path, header=True)
 
+
 @dlt.table
 def medium_clean():
     df: DataFrame = dlt.read("medium_raw")
